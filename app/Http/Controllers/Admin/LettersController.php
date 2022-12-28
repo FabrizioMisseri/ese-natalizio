@@ -26,7 +26,7 @@ class LettersController extends Controller
      */
     public function create()
     {
-        //
+        return view('letters.create');
     }
 
     /**
@@ -37,7 +37,13 @@ class LettersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $newLetter = new Letter();
+        $newLetter->fill($data);
+        $newLetter->save();
+
+        return redirect()->route('letters.show', $newLetter->id);
     }
 
     /**
@@ -59,7 +65,6 @@ class LettersController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
