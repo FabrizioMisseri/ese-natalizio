@@ -1,6 +1,13 @@
 @extends('layout.app')
 
 @section('content')
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <p> {{ $error }} </p>
+        @endforeach
+    @endif
+
     <form action=" {{ route('letters.update', $letter->id) }} " method="POST">
         @method('PUT')
         @csrf

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Letter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LettersController extends Controller
 {
@@ -77,7 +78,9 @@ class LettersController extends Controller
      */
     public function update(Request $request, Letter $letter)
     {
-        $data = $request->all();
+
+        $data = $this->validation($request->all());
+
         $letter->update($data);
 
         return redirect()->route('letters.show', $letter->id);
@@ -92,5 +95,23 @@ class LettersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function validation($data)
+    {
+        $validationResult = Validator::make($data, [
+            'name' => 'required',
+            'lastname' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'arrival_date' => 'required',
+            'gift' => 'required',
+            'letter_text' => 'required',
+            'rating' => 'required|min:1|max:5',
+            'is_delivered' => 'required|min:0|max:1',
+
+
+        ])->validate();
+        return $validationResult;
     }
 }
