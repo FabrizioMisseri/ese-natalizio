@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Letter;
 use Illuminate\Http\Request;
 
 class LettersController extends Controller
@@ -14,8 +15,8 @@ class LettersController extends Controller
      */
     public function index()
     {
-
-        return view('letters.index');
+        $letters = Letter::all();
+        return view('letters.index', compact('letters'));
     }
 
     /**
@@ -45,9 +46,9 @@ class LettersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Letter $letter)
     {
-        //
+        return view('letters.show', compact('letter'));
     }
 
     /**
