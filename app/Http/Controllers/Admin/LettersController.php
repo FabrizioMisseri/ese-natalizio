@@ -63,8 +63,9 @@ class LettersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Letter $letter)
     {
+        return view('letters.edit', compact('letter'));
     }
 
     /**
@@ -74,9 +75,12 @@ class LettersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Letter $letter)
     {
-        //
+        $data = $request->all();
+        $letter->update($data);
+
+        return redirect()->route('letters.show', $letter->id);
     }
 
     /**
